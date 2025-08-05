@@ -1,0 +1,19 @@
+/dts-v1/;
+/plugin/;
+
+// Overlay for spi3 device node of BCM2711 on Raspberry Pi 4B, see:
+// https://github.com/raspberrypi/linux/blob/rpi-6.12.y/arch/arm/boot/dts/broadcom/bcm2711.dtsi
+
+&spi3 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&spi3_pins>;   /* gpio 1/2/3 */
+    status = "okay";
+
+    spitft: spitft@0 {
+        compatible = "ilitek-ili9341";
+        reg = <0>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+        spi-max-frequency = <6350000>; /* 6.35 MHz */
+    };
+};
