@@ -1,12 +1,13 @@
+.PHONY: clean devicetree
 
 # ON/OFF flag for debug logging
 DEBUG = y
 
 # "-O" is needed to expand inlines
 ifeq ($(DEBUG),y)
-	DBFLAGS = -O -g -DSPI_TFT_DEBUG
+	DBFLAGS = -std=gnu11 -O -g -DSPI_TFT_DEBUG
 else
-	DBFLAGS = -O2
+	DBFLAGS = -std=gnu11 -O2
 endif
 EXTRA_CFLAGS += $(DBFLAGS)
 

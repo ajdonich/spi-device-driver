@@ -1,5 +1,14 @@
 helpers/
 
+# Yocto kernel and device tree gen'd files
+*.cmd
+Module.symvers
+modules.order
+*.dtbo
+*.dtbo.pp
+*.ko
+*.mod.c
+
 # Prerequisites
 *.d
 

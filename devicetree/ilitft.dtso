@@ -1,19 +1,40 @@
 /dts-v1/;
 /plugin/;
 
-// Overlay for spi3 device node on Raspberry Pi 4B BCM2711, for base dts file see:
+// Overlay for spi3 device node on Raspberry Pi 4B BCM2711, for base dts files see:
+// [https://github.com/agherzan/meta-raspberrypi/blob/master/conf/machine/raspberrypi4-64.conf]
 // https://github.com/raspberrypi/linux/blob/rpi-6.12.y/arch/arm/boot/dts/broadcom/bcm2711.dtsi
+// https://github.com/raspberrypi/linux/blob/rpi-6.12.y/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
+// https://github.com/raspberrypi/linux/blob/rpi-6.12.y/arch/arm/boot/dts/broadcom/bcm2711-rpi-400.dts
+// https://github.com/raspberrypi/linux/blob/rpi-6.12.y/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4.dts
+// https://github.com/raspberrypi/linux/blob/rpi-6.12.y/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4s.dts
+
+// Expected &spi3 pin mappings below (wrt &gpio/gpio-line-names):
+// MISO: ID_SCL
+// MOSI: SDA1
+// SCLK: SCL1
+// CS: ID_SDA
+// D/C: GPIO5
+// RESET: GPIO6
+
+// Note: 3rd value in gpio lines:
+// GPIO_ACTIVE_HIGH = 0
+// GPIO_ACTIVE_LOW = 1 (i.e. inverted set logic)
 
 &spi3 {
     pinctrl-names = "default";
-    pinctrl-0 = <&spi3_pins>;          /* gpio 1/2/3 */
+    pinctrl-0 = <&spi3_pins &spi3_cs_pins>;
+    cs-gpios = <&gpio 0 1>;               /* GPIO_ACTIVE_LOW */
     status = "okay";
 
     spitft: spitft@0 {
         compatible = "ilitek,spitft";
-        reg = <0>;                     /* CE0 (CS pin) */
+        reg = <0>;
         #address-cells = <1>;
         #size-cells = <0>;
-        spi-max-frequency = <6350000>; /* 6.35 MHz */
+        spi-max-frequency = <6350000>;     /* 6.35 MHz */
+        //spi-max-frequency = <16000000>;  /* 16 MHz */
+        dc-gpio = <&gpio 5 0>;             /* Data: HIGH, Cmd: LOW */
+        reset-gpio = <&gpio 6 0>;          /* Reset: LOW */
     };
 };
