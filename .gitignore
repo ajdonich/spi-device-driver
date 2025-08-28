@@ -1,4 +1,6 @@
+.vscode/
 helpers/
+examples/images
 
 # Yocto kernel and device tree gen'd files
 *.cmd

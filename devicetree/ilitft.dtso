@@ -32,8 +32,8 @@
         reg = <0>;
         #address-cells = <1>;
         #size-cells = <0>;
-        spi-max-frequency = <6350000>;     /* 6.35 MHz */
-        //spi-max-frequency = <16000000>;  /* 16 MHz */
+        // spi-max-frequency = <6350000>;     /* 6.35 MHz */
+        spi-max-frequency = <16000000>;    /* 16 MHz */
         dc-gpio = <&gpio 5 0>;             /* Data: HIGH, Cmd: LOW */
         reset-gpio = <&gpio 6 0>;          /* Reset: LOW */
     };

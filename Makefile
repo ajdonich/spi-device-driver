@@ -13,8 +13,7 @@ EXTRA_CFLAGS += $(DBFLAGS)
 
 ifneq ($(KERNELRELEASE),)
 # call from kernel build system
-obj-m := tftdriver.o
-
+obj-m := tftdriver.o spitft.o
 else
 # Yocto will set KERNEL_SRC to the value of the STAGING_KERNEL_DIR, see:
 # https://docs.yoctoproject.org/kernel-dev/common.html#incorporating-out-of-tree-modules
@@ -37,3 +36,4 @@ clean:
 	rm -f *.o *~ core .depend .*.cmd *.ko *.mod *.mod.c 
 	rm -f Module.markers Module.symvers modules.order
 	rm -rf .tmp_versions Modules.symvers
+	$(MAKE) -C examples clean
