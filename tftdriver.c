@@ -144,7 +144,6 @@ static ssize_t tft_write(struct file *filp, const char __user *buf, size_t count
     static int iframe = 0, fidx = 0;
 
     size_t ncopy;
-    uint8_t *inbuffer;
     uint8_t randval;
     RGB randcol;
 
@@ -204,7 +203,6 @@ static ssize_t tft_write(struct file *filp, const char __user *buf, size_t count
         break;
     }
 
-    if (write_mode != GIF_MODE) kfree((void *)inbuffer);
     return ncopy;
 }
 
